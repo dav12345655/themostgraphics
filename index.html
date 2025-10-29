@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>THE MOST GRAPHICS — Portfolio & Blog</title>
+  <meta name="description" content="Portfolio and blog for THE MOST GRAPHICS — Graphic designer." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0f1724; 
+      --card:#0b1220; 
+      --muted:#94a3b8; 
+      --accent:#06b6d4;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #071024 0%, #071428 60%);
+      color: #e6eef8;
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      text-align: center;
+      padding: 40px 10px 20px;
+      background: #0b1220;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .subtitle { color: var(--muted); margin-top: 4px; font-weight: 500; }
+
+    .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+
+    section { margin-bottom: 40px; }
+    section h2 { color: var(--accent); margin-bottom: 10px; font-size: 1.5rem; }
+    section p { line-height: 1.6; color: #dbe8f8; }
+
+    footer {
+      background: #0b1220;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* Floating WhatsApp button */
+    .whatsapp {
+      position: fixed;
+      right: 20px;
+      bottom: 80px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+    }
+    .whatsapp:hover { transform: scale(1.05); }
+    .whatsapp img { width: 32px; height: 32px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>THE MOST GRAPHICS</h1>
+    <div class="subtitle">Graphic Designer — Portfolio & Blog</div>
+  </header>
+
+  <div class="container">
+    <section id="about">
+      <h2>About Me</h2>
+      <p>
+        As a creative professional, my role is not just to design; it's to solve your business's visual communication challenges and deliver measurable results.
+        Your brand isn't just a logo or a collection of colors — it's a story waiting to be told. 
+        I translate that story into a visual language that captivates your audience, builds trust, and ultimately drives your success.
+      </p>
+    </section>
+
+    <section id="designs">
+      <h2>My Designs</h2>
+      <p>Upload your design images inside the <code>assets/designs/</code> folder and link them here. Example:</p>
+      <p>
+        <img src="assets/designs/sample1.jpg" alt="Design sample" style="width:100%;max-width:400px;border-radius:8px;margin-top:10px;">
+      </p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <p><strong>Phone:</strong> 07026865570</p>
+      <p><strong>Email:</strong> <a href="mailto:abrahamgift788@gmail.com" style="color:var(--accent)">abrahamgift788@gmail.com</a></p>
+    </section>
+  </div>
+
+  <footer>
+    © 2025 THE MOST GRAPHICS — Call: 07026865570 | Email: abrahamgift788@gmail.com
+  </footer>
+
+  <!-- WhatsApp floating button -->
+  <a class="whatsapp" href="https://wa.me/2347026865570?text=Hi%20I%20saw%20your%20portfolio%20and%20I%27d%20like%20to%20chat%20about%20a%20project" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  </a>
+</body>
+</html>
