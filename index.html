@@ -4,12 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>THE MOST GRAPHICS</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: "Poppins", sans-serif;
       background: #111;
       color: #fff;
+      overflow-x: hidden;
     }
 
     header {
@@ -19,7 +25,7 @@
     }
 
     header h1 {
-      font-size: 2.8rem;
+      font-size: 2.4rem;
       margin-bottom: 1rem;
       color: #00ffd5;
       text-transform: uppercase;
@@ -34,16 +40,16 @@
       font-size: 1rem;
     }
 
-    /* Masonry layout */
+    /* Responsive masonry grid */
     .gallery {
-      column-count: 3;
-      column-gap: 1em;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1em;
       padding: 2em;
     }
 
     .gallery img {
       width: 100%;
-      margin-bottom: 1em;
       border-radius: 12px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
@@ -54,12 +60,45 @@
       box-shadow: 0 0 15px #00ffd5;
     }
 
-    /* Contact footer */
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 12px;
+      box-shadow: 0 0 25px #00ffd5;
+    }
+
+    .close {
+      position: absolute;
+      top: 25px; right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close:hover {
+      color: #00ffd5;
+    }
+
     footer {
       background: #000;
       text-align: center;
       padding: 2em 1em;
       border-top: 1px solid #222;
+      font-size: 0.95rem;
     }
 
     footer a {
@@ -67,6 +106,7 @@
       text-decoration: none;
       margin: 0 1em;
       font-weight: 500;
+      display: inline-block;
     }
 
     footer a:hover {
@@ -97,12 +137,6 @@
     .whatsapp-float i {
       margin-top: 16px;
     }
-
-    @media (max-width: 768px) {
-      .gallery {
-        column-count: 1;
-      }
-    }
   </style>
 
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -115,14 +149,13 @@
     </p>
   </header>
 
-  <!-- Masonry gallery section -->
-  <section class="gallery">
-    <img src="assets/designs/design1.jpg" alt="Design 1">
-    <img src="assets/designs/design2.jpg" alt="Design 2">
-    <img src="assets/designs/design3.jpg" alt="Design 3">
-    <img src="assets/designs/design4.jpg" alt="Design 4">
-    <img src="assets/designs/design5.jpg" alt="Design 5">
-  </section>
+  <section class="gallery" id="gallery"></section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span class="close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img" />
+  </div>
 
   <footer>
     <a href="tel:+2348166295905">📞 08166295905</a>
@@ -134,5 +167,38 @@
   <a href="https://wa.me/2348166295905" class="whatsapp-float" target="_blank">
     <i class="fab fa-whatsapp"></i>
   </a>
+
+  <script>
+    // Load images automatically
+    const gallery = document.getElementById("gallery");
+    const imageExtensions = [".jpg", ".jpeg", ".png", ".webp"];
+    const imageCount = 10; // change if you upload more
+    imageExtensions.forEach(ext => {
+      for (let i = 1; i <= imageCount; i++) {
+        const img = document.createElement("img");
+        img.src = `assets/designs/design${i}${ext}`;
+        img.alt = `Design ${i}`;
+        img.onerror = () => img.remove(); // hide missing ones
+        gallery.appendChild(img);
+      }
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const close = document.getElementsByClassName("close")[0];
+
+    gallery.addEventListener("click", e => {
+      if (e.target.tagName === "IMG") {
+        lightbox.style.display = "flex";
+        lightboxImg.src = e.target.src;
+      }
+    });
+
+    close.onclick = () => (lightbox.style.display = "none");
+    lightbox.onclick = e => {
+      if (e.target === lightbox) lightbox.style.display = "none";
+    };
+  </script>
 </body>
 </html>
