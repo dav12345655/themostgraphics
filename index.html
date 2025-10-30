@@ -184,43 +184,40 @@
      class="hire-now-float" target="_blank">HIRE NOW</a>
 
   <script>
-    const designsContainer = document.getElementById("designs-container");
-    const designCount = 1; // Show only your main design
+  const designsContainer = document.getElementById("designs-container");
+  const designCount = 10;
 
-    for (let i = 1; i <= designCount; i++) {
-      const section = document.createElement("div");
-      section.className = "gallery-section";
+  for (let i = 1; i <= designCount; i++) {
+    const section = document.createElement("div");
+    section.className = "gallery-section";
 
-      const img = document.createElement("img");
-      img.alt = `Design ${i}`;
+    const img = document.createElement("img");
+    img.alt = `Design ${i}`;
+    img.src = `assets/designs/Design${i}.jpg`;
+    section.appendChild(img);
 
-      // Use your GitHub-hosted image path (upload it to /assets/designs/)
-      img.src = "assets/designs/Design1.jpg";
+    const blog = document.createElement("div");
+    blog.className = "blog-article";
+    blog.textContent = `Design ${i} – Creative graphics work by The Most Graphics.`;
+    section.appendChild(blog);
 
-      section.appendChild(img);
+    designsContainer.appendChild(section);
+  }
 
-      const blog = document.createElement("div");
-      blog.className = "blog-article";
-      blog.textContent = "GLAMBYPEACEFUL BEAUTY STUDIO – Makeup for all occasions. Bridal, Birthday, Graduation, and more.";
-      section.appendChild(blog);
+  // Lightbox preview
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const close = document.getElementsByClassName("close")[0];
 
-      designsContainer.appendChild(section);
+  designsContainer.addEventListener("click", e => {
+    if (e.target.tagName === "IMG") {
+      lightbox.style.display = "flex";
+      lightboxImg.src = e.target.src;
     }
+  });
 
-    // Lightbox preview
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightbox-img");
-    const close = document.getElementsByClassName("close")[0];
-
-    designsContainer.addEventListener("click", e => {
-      if (e.target.tagName === "IMG") {
-        lightbox.style.display = "flex";
-        lightboxImg.src = e.target.src;
-      }
-    });
-
-    close.onclick = () => (lightbox.style.display = "none");
-    lightbox.onclick = e => { if (e.target === lightbox) lightbox.style.display = "none"; }
-  </script>
+  close.onclick = () => (lightbox.style.display = "none");
+  lightbox.onclick = e => { if (e.target === lightbox) lightbox.style.display = "none"; }
+</script>
 </body>
 </html>
