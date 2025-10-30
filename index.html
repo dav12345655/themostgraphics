@@ -38,7 +38,7 @@
     }
 
     .gallery-section {
-      max-width: 900px;
+      max-width: 1200px;
       margin: 2em auto;
       padding: 0 1em;
       border-bottom: 1px solid #222;
@@ -47,6 +47,8 @@
 
     .gallery-section img {
       width: 100%;
+      max-height: 600px; /* Larger display */
+      object-fit: cover;
       border-radius: 12px;
       margin-bottom: 1em;
       cursor: pointer;
@@ -55,7 +57,7 @@
 
     .gallery-section img:hover {
       transform: scale(1.03);
-      box-shadow: 0 0 15px #00ffd5;
+      box-shadow: 0 0 25px #00ffd5;
     }
 
     .blog-article {
@@ -64,7 +66,13 @@
       padding: 1em;
       border-radius: 8px;
       color: #ccc;
-      min-height: 80px;
+      min-height: 100px;
+      outline: none;
+    }
+
+    .blog-article:focus {
+      border: 1px solid #00ffd5;
+      box-shadow: 0 0 10px #00ffd5;
     }
 
     /* Lightbox */
@@ -74,23 +82,25 @@
       z-index: 1000;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.9);
+      background-color: rgba(0,0,0,0.95);
       justify-content: center;
       align-items: center;
+      padding: 20px;
     }
 
     .lightbox-content {
-      max-width: 90%;
-      max-height: 80vh;
-      border-radius: 12px;
-      box-shadow: 0 0 25px #00ffd5;
+      width: auto;
+      max-width: 95%;
+      max-height: 85vh;
+      border-radius: 15px;
+      box-shadow: 0 0 40px #00ffd5;
     }
 
     .close {
       position: absolute;
       top: 25px; right: 35px;
       color: #fff;
-      font-size: 40px;
+      font-size: 45px;
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
@@ -118,24 +128,24 @@
 
     /* Floating HIRE NOW button */
     .hire-now-float {
-  position: fixed;
-  bottom: 1.6cm; /* moved 1cm above bottom */
-  right: 29px;
-  background: #25d366;
-  color: #000;
-  font-weight: 700;
-  padding: 15px 28px;
-  border-radius: 40px;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  text-align: center;
-  cursor: pointer;
-  z-index: 1000;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  font-size: 1.3rem;
-  transition: transform 0.3s;
-  text-decoration: none;
-}
+      position: fixed;
+      bottom: 1cm; /* 1cm above bottom */
+      right: 20px;
+      background: #25d366;
+      color: #000;
+      font-weight: 700;
+      padding: 15px 28px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-align: center;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      font-size: 1rem;
+      transition: transform 0.3s;
+      text-decoration: none;
+    }
 
     .hire-now-float:hover {
       transform: scale(1.05);
@@ -146,6 +156,7 @@
       header h1 { font-size: 1.8rem; }
       header p { font-size: 0.9rem; }
       .hire-now-float { padding: 12px 22px; font-size: 0.9rem; }
+      .gallery-section img { max-height: 400px; }
     }
   </style>
 </head>
@@ -158,10 +169,8 @@
     </p>
   </header>
 
-  <!-- 10 Design sections with blog space -->
-  <section id="designs-container">
-    <!-- Sections will be injected by JS -->
-  </section>
+  <!-- Design sections -->
+  <section id="designs-container"></section>
 
   <!-- Lightbox -->
   <div id="lightbox" class="lightbox">
@@ -181,17 +190,16 @@
 
   <script>
     const designsContainer = document.getElementById("designs-container");
-    const designCount = 10; // 10 design sections
+    const designCount = 10;
     const imageExtensions = [".jpg", ".jpeg", ".png", ".webp"];
 
     for (let i = 1; i <= designCount; i++) {
       const section = document.createElement("div");
       section.className = "gallery-section";
 
-      // Try each extension
       let img = document.createElement("img");
       img.alt = `Design ${i}`;
-      img.src = `assets/designs/design${i}.jpg`; // default
+      img.src = `assets/designs/design${i}.jpg`;
       img.onerror = function() {
         let found = false;
         imageExtensions.forEach(ext => {
@@ -201,20 +209,24 @@
             testImg.onload = function() { img.src = testImg.src; found = true; }
           }
         });
-      }
-
+      };
       section.appendChild(img);
 
-      // Blog/article space
       const blog = document.createElement("div");
       blog.className = "blog-article";
-      blog.textContent = `Write your blog/article about Design ${i} here.`;
+      blog.contentEditable = true;
+      const saved = localStorage.getItem(`blog${i}`);
+      blog.textContent = saved ? saved : `Write your blog/article about Design ${i} here.`;
       section.appendChild(blog);
+
+      blog.addEventListener("input", () => {
+        localStorage.setItem(`blog${i}`, blog.textContent);
+      });
 
       designsContainer.appendChild(section);
     }
 
-    // Lightbox
+    // Lightbox preview
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
     const close = document.getElementsByClassName("close")[0];
