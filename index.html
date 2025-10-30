@@ -1,245 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>THE MOST GRAPHICS</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>THE MOST GRAPHICS</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f8f8f8;
+    color: #333;
+  }
 
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background: #0b0b0b;
-      color: #fff;
-      overflow-x: hidden;
+  header {
+    text-align: center;
+    padding: 1rem;
+    background: black;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .design {
+    max-width: 100%;
+    margin: 1rem auto;
+    text-align: center;
+  }
+
+  .design img {
+    width: 95%;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .design img:hover {
+    transform: scale(1.02);
+  }
+
+  .blog {
+    width: 90%;
+    margin: 0.5rem auto 2rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: left;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1rem;
+    background: black;
+    color: white;
+  }
+
+  /* Floating Hire Now button */
+  .hire-now {
+    position: fixed;
+    bottom: 1cm;
+    right: 20px;
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 25px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    transition: background 0.3s;
+  }
+
+  .hire-now:hover {
+    background: #128C7E;
+  }
+
+  /* Image preview (modal) */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0,0,0,0.9);
+  }
+
+  .modal-content {
+    margin: auto;
+    display: block;
+    width: 90%;
+    max-width: 800px;
+  }
+
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  @media (max-width: 600px) {
+    .blog {
+      width: 95%;
     }
-
-    header {
-      text-align: center;
-      padding: 4rem 1rem 2rem;
-      background: linear-gradient(135deg, #111, #1f1f1f);
+    .hire-now {
+      right: 10px;
+      padding: 12px 20px;
     }
-
-    header h1 {
-      font-size: 2.6rem;
-      margin-bottom: 1rem;
-      color: #00ffd5;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-
-    header p {
-      max-width: 700px;
-      margin: 0 auto;
-      line-height: 1.7;
-      color: #ccc;
-      font-size: 1rem;
-    }
-
-    .gallery-section {
-      max-width: 1200px;
-      margin: 2em auto;
-      padding: 0 1em;
-      border-bottom: 1px solid #222;
-      padding-bottom: 2em;
-    }
-
-    .gallery-section img {
-      width: 100%;
-      max-height: 600px; /* Larger display */
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 1em;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .gallery-section img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 25px #00ffd5;
-    }
-
-    .blog-article {
-      margin-top: 1em;
-      background: #111;
-      padding: 1em;
-      border-radius: 8px;
-      color: #ccc;
-      min-height: 100px;
-      outline: none;
-    }
-
-    .blog-article:focus {
-      border: 1px solid #00ffd5;
-      box-shadow: 0 0 10px #00ffd5;
-    }
-
-    /* Lightbox */
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.95);
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .lightbox-content {
-      width: auto;
-      max-width: 95%;
-      max-height: 85vh;
-      border-radius: 15px;
-      box-shadow: 0 0 40px #00ffd5;
-    }
-
-    .close {
-      position: absolute;
-      top: 25px; right: 35px;
-      color: #fff;
-      font-size: 45px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .close:hover { color: #00ffd5; }
-
-    footer {
-      background: #000;
-      text-align: center;
-      padding: 2em 1em;
-      border-top: 1px solid #222;
-      font-size: 0.95rem;
-    }
-
-    footer a {
-      color: #00ffd5;
-      text-decoration: none;
-      margin: 0 1em;
-      font-weight: 500;
-      display: inline-block;
-    }
-
-    footer a:hover { text-decoration: underline; }
-
-    /* Floating HIRE NOW button */
-    .hire-now-float {
-      position: fixed;
-      bottom: 1cm; /* 1cm above bottom */
-      right: 20px;
-      background: #25d366;
-      color: #000;
-      font-weight: 700;
-      padding: 15px 28px;
-      border-radius: 50px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      text-align: center;
-      cursor: pointer;
-      z-index: 1000;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      font-size: 1rem;
-      transition: transform 0.3s;
-      text-decoration: none;
-    }
-
-    .hire-now-float:hover {
-      transform: scale(1.05);
-      background: #00ff85;
-    }
-
-    @media (max-width: 600px) {
-      header h1 { font-size: 1.8rem; }
-      header p { font-size: 0.9rem; }
-      .hire-now-float { padding: 12px 22px; font-size: 0.9rem; }
-      .gallery-section img { max-height: 400px; }
-    }
-  </style>
+  }
+</style>
 </head>
-
 <body>
-  <header>
-    <h1>THE MOST GRAPHICS</h1>
-    <p>
-      As a creative professional, my role is not just to design; it's to solve your business's visual communication challenges and deliver measurable results. Your brand isn't just a logo or a collection of colors—it's a story waiting to be told. I translate that story into a visual language that captivates your audience, builds trust, and ultimately drives your success.
-    </p>
-  </header>
 
-  <!-- Design sections -->
-  <section id="designs-container"></section>
+<header>THE MOST GRAPHICS</header>
 
-  <!-- Lightbox -->
-  <div id="lightbox" class="lightbox">
-    <span class="close">&times;</span>
-    <img class="lightbox-content" id="lightbox-img" />
-  </div>
+<!-- Design 1 -->
+<div class="design">
+  <img id="img1" src="48dbec99-931f-423d-8c54-936d247cff6c.jpg" alt="Design 1">
+</div>
+<div class="blog">
+  <h3>Design 1 — Blog / Article</h3>
+  <p>
+    As a creative professional, my role is not just to design; it's to solve your business's visual communication challenges and deliver measurable results.
+    Your brand isn't just a logo or a collection of colors—it's a story waiting to be told.
+    I translate that story into a visual language that captivates your audience, builds trust, and ultimately drives your success.
+  </p>
+</div>
 
-  <footer>
-    <a href="tel:+2348166295905">📞 08166295905</a>
-    <a href="mailto:obadilechinweike@gmail.com">📧 obadilechinweike@gmail.com</a>
-    <a href="https://instagram.com/the_name_is_most" target="_blank">📸 Instagram</a>
-  </footer>
+<!-- Floating Hire Now Button -->
+<button class="hire-now" onclick="window.open('https://wa.me/2348166295905','_blank')">HIRE NOW</button>
 
-  <!-- Floating HIRE NOW button -->
-  <a href="https://wa.me/2348166295905?text=Hello%20Most%2C%20I%20am%20interested%20in%20your%20design%20services."
-     class="hire-now-float" target="_blank">HIRE NOW</a>
+<!-- Image Preview Modal -->
+<div id="modal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="preview">
+</div>
 
-  <script>
-    const designsContainer = document.getElementById("designs-container");
-    const designCount = 10;
-    const imageExtensions = [".jpg", ".jpeg", ".png", ".webp"];
+<footer>
+  📞 <a href="tel:08166295905" style="color:white;text-decoration:none;">08166295905</a> |
+  📧 <a href="mailto:obadilechinweike@gmail.com" style="color:white;text-decoration:none;">obadilechinweike@gmail.com</a> |
+  📸 <a href="https://instagram.com/the_name_is_most" target="_blank" style="color:white;text-decoration:none;">@the_name_is_most</a>
+</footer>
 
-    for (let i = 1; i <= designCount; i++) {
-      const section = document.createElement("div");
-      section.className = "gallery-section";
+<script>
+  const modal = document.getElementById("modal");
+  const preview = document.getElementById("preview");
+  const img1 = document.getElementById("img1");
 
-      let img = document.createElement("img");
-      img.alt = `Design ${i}`;
-      img.src = `assets/designs/Design 1.jpg`;
-      img.onerror = function() {
-        let found = false;
-        imageExtensions.forEach(ext => {
-          if (!found) {
-            const testImg = new Image();
-            testImg.src = `assets/designs/design${i}${ext}`;
-            testImg.onload = function() { img.src = testImg.src; found = true; }
-          }
-        });
-      };
-      section.appendChild(img);
+  img1.onclick = function() {
+    modal.style.display = "block";
+    preview.src = this.src;
+  };
 
-      const blog = document.createElement("div");
-      blog.className = "blog-article";
-      blog.contentEditable = true;
-      const saved = localStorage.getItem(`blog${i}`);
-      blog.textContent = saved ? saved : `Write your blog/article about Design ${i} here.`;
-      section.appendChild(blog);
+  function closeModal() {
+    modal.style.display = "none";
+  }
 
-      blog.addEventListener("input", () => {
-        localStorage.setItem(`blog${i}`, blog.textContent);
-      });
-
-      designsContainer.appendChild(section);
+  window.onclick = function(e) {
+    if (e.target == modal) {
+      modal.style.display = "none";
     }
+  };
+</script>
 
-    // Lightbox preview
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightbox-img");
-    const close = document.getElementsByClassName("close")[0];
-
-    designsContainer.addEventListener("click", e => {
-      if (e.target.tagName === "IMG") {
-        lightbox.style.display = "flex";
-        lightboxImg.src = e.target.src;
-      }
-    });
-
-    close.onclick = () => (lightbox.style.display = "none");
-    lightbox.onclick = e => { if (e.target === lightbox) lightbox.style.display = "none"; }
-  </script>
 </body>
 </html>
