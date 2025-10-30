@@ -37,24 +37,34 @@
       font-size: 1rem;
     }
 
-    /* Responsive gallery */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1em;
-      padding: 2em;
+    .gallery-section {
+      max-width: 900px;
+      margin: 2em auto;
+      padding: 0 1em;
+      border-bottom: 1px solid #222;
+      padding-bottom: 2em;
     }
 
-    .gallery img {
+    .gallery-section img {
       width: 100%;
       border-radius: 12px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 1em;
       cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .gallery img:hover {
-      transform: scale(1.04);
+    .gallery-section img:hover {
+      transform: scale(1.03);
       box-shadow: 0 0 15px #00ffd5;
+    }
+
+    .blog-article {
+      margin-top: 1em;
+      background: #111;
+      padding: 1em;
+      border-radius: 8px;
+      color: #ccc;
+      min-height: 80px;
     }
 
     /* Lightbox */
@@ -106,54 +116,38 @@
 
     footer a:hover { text-decoration: underline; }
 
-    /* Floating WhatsApp button */
-    .whatsapp-float {
+    /* Floating HIRE NOW button */
+    .hire-now-float {
       position: fixed;
       bottom: 20px;
       right: 20px;
       background: #25d366;
-      color: white;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      text-align: center;
-      font-size: 28px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      z-index: 100;
-      transition: transform 0.3s;
-    }
-
-    .whatsapp-float:hover { transform: scale(1.1); }
-    .whatsapp-float i { margin-top: 16px; }
-
-    /* Hire Me Button */
-    .hire-btn {
-      display: inline-block;
-      background: linear-gradient(135deg, #00ffd5, #0099ff);
       color: #000;
-      padding: 12px 28px;
       font-weight: 700;
-      text-transform: uppercase;
+      padding: 15px 28px;
       border-radius: 50px;
+      text-transform: uppercase;
       letter-spacing: 1px;
+      text-align: center;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      font-size: 1rem;
+      transition: transform 0.3s;
       text-decoration: none;
-      transition: 0.3s;
-      margin-top: 2em;
     }
 
-    .hire-btn:hover {
-      background: linear-gradient(135deg, #00ff99, #00ffd5);
+    .hire-now-float:hover {
       transform: scale(1.05);
+      background: #00ff85;
     }
 
     @media (max-width: 600px) {
       header h1 { font-size: 1.8rem; }
       header p { font-size: 0.9rem; }
-      .hire-btn { padding: 10px 22px; font-size: 0.9rem; }
+      .hire-now-float { padding: 12px 22px; font-size: 0.9rem; }
     }
   </style>
-
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -162,15 +156,12 @@
     <p>
       As a creative professional, my role is not just to design; it's to solve your business's visual communication challenges and deliver measurable results. Your brand isn't just a logo or a collection of colors—it's a story waiting to be told. I translate that story into a visual language that captivates your audience, builds trust, and ultimately drives your success.
     </p>
-
-    <!-- Hire Me Button -->
-    <a href="https://wa.me/2348166295905?text=Hello%20Most%2C%20I%27m%20interested%20in%20working%20with%20you%20on%20a%20design%20project." 
-       class="hire-btn" target="_blank">
-      💼 Hire Me
-    </a>
   </header>
 
-  <section class="gallery" id="gallery"></section>
+  <!-- 10 Design sections with blog space -->
+  <section id="designs-container">
+    <!-- Sections will be injected by JS -->
+  </section>
 
   <!-- Lightbox -->
   <div id="lightbox" class="lightbox">
@@ -184,34 +175,51 @@
     <a href="https://instagram.com/the_name_is_most" target="_blank">📸 Instagram</a>
   </footer>
 
-  <!-- WhatsApp Floating Icon -->
-  <a href="https://wa.me/2348166295905?text=Hi%20Most%2C%20I%20saw%20your%20portfolio%20and%20I%27d%20love%20to%20work%20with%20you."
-     class="whatsapp-float" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-  </a>
+  <!-- Floating HIRE NOW button -->
+  <a href="https://wa.me/2348166295905?text=Hello%20Most%2C%20I%20am%20interested%20in%20your%20design%20services."
+     class="hire-now-float" target="_blank">HIRE NOW</a>
 
   <script>
-    // Load images automatically
-    const gallery = document.getElementById("gallery");
+    const designsContainer = document.getElementById("designs-container");
+    const designCount = 10; // 10 design sections
     const imageExtensions = [".jpg", ".jpeg", ".png", ".webp"];
-    const imageCount = 10; // change this if you upload more designs
 
-    imageExtensions.forEach(ext => {
-      for (let i = 1; i <= imageCount; i++) {
-        const img = document.createElement("img");
-        img.src = `assets/designs/design${i}${ext}`;
-        img.alt = `Design ${i}`;
-        img.onerror = () => img.remove();
-        gallery.appendChild(img);
+    for (let i = 1; i <= designCount; i++) {
+      const section = document.createElement("div");
+      section.className = "gallery-section";
+
+      // Try each extension
+      let img = document.createElement("img");
+      img.alt = `Design ${i}`;
+      img.src = `assets/designs/design${i}.jpg`; // default
+      img.onerror = function() {
+        let found = false;
+        imageExtensions.forEach(ext => {
+          if (!found) {
+            const testImg = new Image();
+            testImg.src = `assets/designs/design${i}${ext}`;
+            testImg.onload = function() { img.src = testImg.src; found = true; }
+          }
+        });
       }
-    });
+
+      section.appendChild(img);
+
+      // Blog/article space
+      const blog = document.createElement("div");
+      blog.className = "blog-article";
+      blog.textContent = `Write your blog/article about Design ${i} here.`;
+      section.appendChild(blog);
+
+      designsContainer.appendChild(section);
+    }
 
     // Lightbox
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
     const close = document.getElementsByClassName("close")[0];
 
-    gallery.addEventListener("click", e => {
+    designsContainer.addEventListener("click", e => {
       if (e.target.tagName === "IMG") {
         lightbox.style.display = "flex";
         lightboxImg.src = e.target.src;
@@ -219,9 +227,7 @@
     });
 
     close.onclick = () => (lightbox.style.display = "none");
-    lightbox.onclick = e => {
-      if (e.target === lightbox) lightbox.style.display = "none";
-    };
+    lightbox.onclick = e => { if (e.target === lightbox) lightbox.style.display = "none"; }
   </script>
 </body>
 </html>
