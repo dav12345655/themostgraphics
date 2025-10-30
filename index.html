@@ -70,11 +70,6 @@
       outline: none;
     }
 
-    .blog-article:focus {
-      border: 1px solid #00ffd5;
-      box-shadow: 0 0 10px #00ffd5;
-    }
-
     /* Lightbox */
     .lightbox {
       display: none;
@@ -190,8 +185,7 @@
 
   <script>
     const designsContainer = document.getElementById("designs-container");
-    const designCount = 10;
-    const imageExtensions = [".jpg", ".jpeg", ".png", ".webp"];
+    const designCount = 1; // Show only your main design
 
     for (let i = 1; i <= designCount; i++) {
       const section = document.createElement("div");
@@ -199,36 +193,16 @@
 
       const img = document.createElement("img");
       img.alt = `Design ${i}`;
-      
-      // Use uploaded image for Design 1
-      if (i === 1) {
-        img.src = "2ee286ef-fbb4-4633-8f23-dbbe5b8d8666.jpg";
-      } else {
-        img.src = `https://i.pinimg.com/1200x/04/1a/71/041a71e5073d385337d777229e868f33.jpg`;
-      }
 
-      img.onerror = function() {
-        let found = false;
-        imageExtensions.forEach(ext => {
-          if (!found) {
-            const testImg = new Image();
-            testImg.src = `assets/designs/design${i}${ext}`;
-            testImg.onload = function() { img.src = testImg.src; found = true; }
-          }
-        });
-      };
+      // Use your GitHub-hosted image path (upload it to /assets/designs/)
+      img.src = "assets/designs/Design1.jpg";
+
       section.appendChild(img);
 
       const blog = document.createElement("div");
       blog.className = "blog-article";
-      blog.contentEditable = true;
-      const saved = localStorage.getItem(`blog${i}`);
-      blog.textContent = saved ? saved : `Write your blog/article about Design ${i} here.`;
+      blog.textContent = "GLAMBYPEACEFUL BEAUTY STUDIO – Makeup for all occasions. Bridal, Birthday, Graduation, and more.";
       section.appendChild(blog);
-
-      blog.addEventListener("input", () => {
-        localStorage.setItem(`blog${i}`, blog.textContent);
-      });
 
       designsContainer.appendChild(section);
     }
