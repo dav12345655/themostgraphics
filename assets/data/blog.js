@@ -1,5 +1,5 @@
 const blogData = [
-"<strong>Design Category:</strong> Commercial Marketing Flyer – Created to promote products, services, or business campaigns with a strong focus on customer engagement and brand visibility.",
+"<strong>Design Category:</strong> Commercial Marketing Flyer <br> Created to promote products, services, or business campaigns with a strong focus on customer engagement and brand visibility.",
 
 "<strong>Design Category:</strong> Commercial Marketing Flyer – Designed to attract attention, communicate key information, and drive audience response through effective visual marketing.",
 
