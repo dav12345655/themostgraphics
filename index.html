@@ -218,7 +218,7 @@
 
       const blog = document.createElement("div");
       blog.className = "blog-article";
-      blog.textContent = blogData[i - 1] || `Design ${i}`;
+      blog.innerHTML = blogData[i - 1] || `Design ${i}`;
       section.appendChild(blog);
 
       designsContainer.appendChild(section);
