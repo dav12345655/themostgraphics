@@ -60,20 +60,40 @@
       box-shadow: 0 0 25px #00ffd5;
     }
 
-    .blog-article {
-      margin-top: 1em;
-      background: #111;
-      padding: 1em;
-      border-radius: 8px;
-      color: #ccc;
-      min-height: 100px;
-      outline: none;
-    }
+  .blog-article {
+margin-top: 1em;
+background: #111;
+padding: 1.4em;
+border-radius: 12px;
+color: #cfcfcf;
+min-height: 120px;
+outline: none;
+line-height: 1.8;
+text-align: left;
+border-left: 4px solid #00ffd5;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+transition: all 0.3s ease;
+}
 
-    .blog-article:focus {
-      border: 1px solid #00ffd5;
-      box-shadow: 0 0 10px #00ffd5;
-    }
+.blog-article:hover {
+transform: translateY(-3px);
+box-shadow: 0 8px 25px rgba(0, 255, 213, 0.15);
+}
+
+.blog-article strong {
+display: block;
+color: #ffffff;
+font-size: 1.08rem;
+font-weight: 700;
+margin-bottom: 0.5rem;
+letter-spacing: 0.3px;
+}
+
+.blog-article:focus {
+border: 1px solid #00ffd5;
+box-shadow: 0 0 15px rgba(0, 255, 213, 0.3);
+}
+
 
     /* Lightbox */
     .lightbox {
