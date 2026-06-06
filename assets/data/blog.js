@@ -1,5 +1,5 @@
 const blogData = [
-  "Design 1: A modern flyer concept combining bold typography with vibrant gradients for maximum visual impact.",
+  "Design : A modern flyer concept combining bold typography with vibrant gradients for maximum visual impact.",
   "Design 2: A minimalist product advertisement focused on clean layout and subtle brand highlights.",
   "Design 3: A stylish event poster showcasing energetic composition and strong contrast.",
   "Design 4: A professional business card design that blends simplicity with brand identity.",
